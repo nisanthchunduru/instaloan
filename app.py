@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template, session, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-import random
-from datetime import datetime, timedelta
+from datetime import datetime
 import os
-from helpers import memoize, get_month_name
+from helpers import get_business_balance_sheet, get_month_name, evaluate_loan_application
 from models import db, LoanApplication
 
 app = Flask("instaloan")
@@ -16,32 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
 db.init_app(app)
 migrate = Migrate(app, db)
-
-@memoize
-def get_business_balance_sheet(business_name):
-    start_date = datetime.now() - timedelta(days=3 * 365)
-
-    balance_sheet = []
-
-    for _ in range(36):
-        profit = random.uniform(-10000, 10000)
-
-        if balance_sheet:
-            assets = round(balance_sheet[-1]['assetsValue'] + profit)
-        else:
-            assets = round(profit)
-
-        balance_sheet.append({
-            'year': start_date.year,
-            'month': start_date.month,
-            'profitOrLoss': round(profit),
-            'assetsValue': assets
-        })
-
-        # Move to the next month
-        start_date += timedelta(days=30)
-
-    return balance_sheet
 
 @app.route('/')
 def home():
@@ -106,15 +78,6 @@ def balance_sheet(loan_application_id):
         target_year=target_year,
         balance_sheet_for_target_year=balance_sheet_for_target_year
     )
-
-def evaluate_loan_application(loan_application):
-    if random.randint(0, 100) > 50:
-        return "approve"
-    else:
-        return "reject"
-
-    db.session.add(loan_application)
-    db.session.commit()
 
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet/accept')
 def accept_balance_sheet(loan_application_id):
