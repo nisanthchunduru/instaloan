@@ -61,7 +61,9 @@ python app.py
 ### Todos
 
 - Don't approve all loans. Randomly disapprove a percentage of loans.
+- Add form validations to the backend
 - Add ability to easily go forwards/backwards. Prefill forms that have been previously completed.
 - Refactor app.py
+- Refactor the `LoanApplication` model
 - Add unit tests
 - Add integration tests
