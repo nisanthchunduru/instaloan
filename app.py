@@ -3,9 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import random
 from datetime import datetime, timedelta
-import calendar
 import os
-from helpers import memoize
+from helpers import memoize, get_month_name
+from models import db, LoanApplication
 
 app = Flask("instaloan")
 app.config['SECRET_KEY'] = "dummy_secret_key"
@@ -13,17 +13,9 @@ app.config['SECRET_KEY'] = "dummy_secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgresql://postgres:@localhost/instaloan_dev'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
-
-class LoanApplication(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    business_name = db.Column(db.String(255), nullable=False)
-    business_email = db.Column(db.String(255), nullable=False)
-    establishment_year = db.Column(db.Integer, nullable=False)
-    loan_amount = db.Column(db.Integer, nullable=False)
-    accounting_software = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.String(50), default='Pending')
 
 @memoize
 def get_business_balance_sheet(business_name):
@@ -95,10 +87,6 @@ def create_loan_application():
     # return redirect(url_for('balance_sheet', loan_application_id=loan_application.id))
     current_year = datetime.now().year
     return redirect(url_for('balance_sheet', loan_application_id=loan_application.id))
-
-def get_month_name(month_number):
-    month_name = calendar.month_name[month_number]
-    return month_name
 
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet')
 def balance_sheet(loan_application_id):
