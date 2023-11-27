@@ -5,15 +5,29 @@
 
   <body>
     <div>
-      <div class="text-center mt-20">
-          <h1 class="text-5xl font-bold">Instaloan</h1>
-          <h2 class="text-xl mt-2">Instant loan for your business</h2>
+      <div class="mt-20">
+          <div class="text-center">
+            <h1 class="text-5xl font-bold">Instaloan</h1>
+            <h2 class="text-xl mt-2">Instant loan for your business</h2>
+          </div>
 
-          <a class="block mt-24" href="/loan_applications/new">
-            <button class="bg-violet-500 hover:bg-violet-700 text-white py-4 px-8 rounded shadow focus:outline-none focus:shadow-outline font-bold" type="button">
-              Start your loan application
-            </button>
-          </a>
+          <div class="flex justify-center">
+            <div class="bg-white rounded px-8 pt-6 pb-8 mb-4 shadow-md w-1/4 mt-12">
+              <form class="mb-0" method="post" action="/login">
+                <div>
+                  <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="business_email">Business email</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="business_email" type="email" placeholder="contact@acme.com">
+                  </div>
+
+                  <div class="mt-6 flex justify-center">
+                    <button type="submit" class="bg-violet-500 hover:bg-violet-700 text-white py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline font-bold">
+                      Get an Instaloan!
+                    </button>
+                  <div>
+              </form>
+            </div>
+          </div>
       </div>
     </div>
   </body>
