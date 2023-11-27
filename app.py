@@ -42,6 +42,7 @@ def create_session():
 def destroy_session():
     if 'business_email' in session:
         session.pop('business_email')
+    if 'current_loan_application_id' in session:
         session.pop('current_loan_application_id')
     return tredirect(url_for('home'))
 
