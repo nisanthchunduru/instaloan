@@ -153,4 +153,8 @@ def loan_application_approved(loan_application_id):
     return render_template('loan_applications/approved/show.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost')
+    is_heroku = 'DYNO' in os.environ
+    if is_heroku:
+        app.run(host='0.0.0.0')
+    else:
+        app.run(debug=True, host='localhost')
