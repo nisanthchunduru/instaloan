@@ -5,6 +5,7 @@ import random
 from datetime import datetime, timedelta
 import calendar
 import os
+from helpers import memoize
 
 app = Flask("instaloan")
 app.config['SECRET_KEY'] = "dummy_secret_key"
@@ -23,19 +24,6 @@ class LoanApplication(db.Model):
     loan_amount = db.Column(db.Integer, nullable=False)
     accounting_software = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(50), default='Pending')
-
-def memoize(func):
-    cache = {}
-
-    def wrapper(*args):
-        if args not in cache:
-            result = func(*args)
-            cache[args] = result
-            return result
-        else:
-            return cache[args]
-
-    return wrapper
 
 @memoize
 def get_business_balance_sheet(business_name):
