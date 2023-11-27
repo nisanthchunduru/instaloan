@@ -1,4 +1,5 @@
 version: "2.14"
+
 services:
   postgres:
     image: "postgres:13.7-alpine"
@@ -8,5 +9,18 @@ services:
       - postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://postgres:@postgres/instaloan_dev"
+    # command: gunicorn app:app -b 0.0.0.0:5000
+
 volumes:
   postgres:

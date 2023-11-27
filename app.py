@@ -157,4 +157,4 @@ if __name__ == '__main__':
     if is_heroku:
         app.run(host='0.0.0.0')
     else:
-        app.run(debug=True, host='localhost')
+        app.run(host='0.0.0.0', port=8080, debug=True)

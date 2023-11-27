@@ -8,6 +8,16 @@ Visit https://instaloan.onrender.com for a quick demo
 
 ## Installation
 
+Start the app
+
+```
+docker compose up --build
+```
+
+and visit http://localhost:8080
+
+If you don't want to start the app in Docker, follow the steps below.
+
 Install dependencies
 
 ```
@@ -17,7 +27,7 @@ pip install -r requirements.txt
 Start Postgres
 
 ```
-docker compose up
+docker compose up postgres
 ```
 
 Create the database
