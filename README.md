@@ -61,6 +61,5 @@ python app.py
 ### Todos
 
 - Add form validations to the backend
-- Add ability to easily go forwards/backwards. Prefill forms that have been previously completed.
 - Add unit tests
 - Add integration tests
