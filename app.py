@@ -119,6 +119,15 @@ def balance_sheet(loan_application_id):
         balance_sheet_for_target_year=balance_sheet_for_target_year
     )
 
+def evaluate_loan_application(loan_application):
+    if random.randint(0, 100) > 50:
+        return "approve"
+    else:
+        return "reject"
+
+    db.session.add(loan_application)
+    db.session.commit()
+
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet/accept')
 def accept_balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
@@ -127,17 +136,28 @@ def accept_balance_sheet(loan_application_id):
     db.session.add(loan_application)
     db.session.commit()
 
-    return redirect(url_for('loan_application_approved', loan_application_id=loan_application_id))
+    decision = evaluate_loan_application(loan_application)
+    if decision == "approve":
+        loan_application.status = "approved"
+    else:
+        loan_application.status = "rejected"
+    db.session.add(loan_application)
+    db.session.commit()
+
+    if decision == "approve":
+        return redirect(url_for('loan_application_approved', loan_application_id=loan_application_id))
+    else:
+        return redirect(url_for('loan_application_rejected', loan_application_id=loan_application_id))
 
 @app.route('/loan_applications/<int:loan_application_id>/approved')
 def loan_application_approved(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
-
-    loan_application.status = "approved"
-    db.session.add(loan_application)
-    db.session.commit()
-
     return render_template('loan_applications/approved/show.html')
+
+@app.route('/loan_applications/<int:loan_application_id>/rejected')
+def loan_application_rejected(loan_application_id):
+    loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    return render_template('loan_applications/rejected/show.html')
 
 if __name__ == '__main__':
     is_heroku = 'DYNO' in os.environ
