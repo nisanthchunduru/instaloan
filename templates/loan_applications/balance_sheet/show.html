@@ -1,0 +1,38 @@
+<html>
+  <head>
+    {% include 'head.html' %}
+  </head>
+
+  <body>
+    <nav class="bg-white pl-6 pt-4 pb-4">
+      <h3 class="text-3xl font-bold">Instaloan</h3>
+    </nav>
+
+    <div class="flex flex-wrap justify-center mt-12">
+      <div class="basis-1/2">
+        <button class="bg-slate-300 hover:bg-violet-700 text-white py-2 px-4 rounded-full shadow focus:outline-none focus:shadow-outline mr-2" type="button">
+          2022
+        </button>
+        <button class="bg-violet-500 hover:bg-violet-700 text-white py-2 px-4 rounded-full shadow focus:outline-none focus:shadow-outline" type="button">
+          2023
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center">
+      <div class="mt-4 p-4 bg-white shadow-md rounded-lg basis-1/2">
+        <div class="relative w-full overflow-auto">
+          {% include 'loan_applications/balance_sheet/_table.html' %}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center mt-6">
+      <a href="/loan_applications/approved">
+        <button class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" type="button">
+          Accept
+        </button>
+      </a>
+    </div>
+  </body>
+</html>
