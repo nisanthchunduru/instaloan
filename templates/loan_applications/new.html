@@ -1,0 +1,43 @@
+<html>
+  <head>
+    {% include 'head.html' %}
+  </head>
+
+  <body>
+    <nav class="bg-white pl-6 pt-4 pb-4">
+      <h3 class="text-3xl font-bold">Instaloan</h3>
+    </nav>
+    <div class="flex justify-center">
+      <div class="bg-white rounded px-8 pt-6 pb-8 mb-4 shadow-md w-1/4 mt-12">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="business_name">Business Name</label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="business_name" type="text" placeholder="Acme Inc.">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="establishment_year">Year of Establishment</label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="establishment_year" type="text" placeholder="2012">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="loan_amount">Loan Amount (USD)</label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="loan_amount" type="text" placeholder="50000">
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="accounting_software">Accounting Software</label>
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="accounting_software" name="accounting_software">
+            <option value="xero">Xero</option>
+            <option value="myob">MYOB</option>
+          </select>
+        </div>
+
+        <div class="mt-6 flex items-center justify-center">
+          <button class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" type="button">
+            Request Loan
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
