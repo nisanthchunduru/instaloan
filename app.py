@@ -56,8 +56,6 @@ def create_loan_application():
 
     session['current_loan_application_id'] = loan_application.id
 
-    # return redirect(url_for('balance_sheet', loan_application_id=loan_application.id))
-    current_year = datetime.now().year
     return redirect(url_for('balance_sheet', loan_application_id=loan_application.id))
 
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet')
