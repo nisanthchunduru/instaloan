@@ -1,0 +1,28 @@
+<html>
+  <head>
+    {% include 'head.html' %}
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="text-center mt-32">
+      {% if loan_application.status == "approved" %}
+        <h3 class="text-4xl">Congratulations! Your loan has been approved</h3>
+        <p class="mt-2 text-xl">We'll reach out to you shortly</p>
+      {% else %}
+        <h3 class="text-4xl">Sorry :( Your loan has been rejected</h3>
+        <p class="mt-2 text-xl">Fret not. You can try again in 6 months.</p>
+      {% endif %}
+
+      <!-- <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"> -->
+
+      <p class="mt-12 text-xl">Want to apply for Instaloans for your other businesses?</p>
+    </div>
+    <div class="flex items-center justify-center mt-4">
+      <a href="/logout" class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline">
+        Logout & apply for another Instaloan
+      </a>
+    </div>
+  </body>
+</html>

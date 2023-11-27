@@ -11,3 +11,9 @@ class LoanApplication(db.Model):
     loan_amount = db.Column(db.Integer, nullable=False)
     accounting_software = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(50), default='Pending')
+
+    def is_evaluated(self):
+        if self.status in ["approved", "rejected"]:
+            return True
+
+        return False

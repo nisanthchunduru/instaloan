@@ -6,6 +6,11 @@
   <body>
     {% include 'navbar.html' %}
 
+    <div class="text-center mt-12">
+      <h3 class="text-4xl">Review Balance Sheet</h3>
+      <p class="text-gray-400 mt-2 text-xl">Review your business's Balance Sheet and request Instaloan</p>
+    </div>
+
     <div class="flex flex-wrap justify-center mt-12">
       <div class="basis-1/2">
         {% for year in balance_sheet_years %}
@@ -35,7 +40,7 @@
     <div class="flex flex-wrap justify-center mt-6 mb-12">
       <a href="/loan_applications/{{ loan_application_id }}/balance_sheet/accept">
         <button class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" type="button">
-          Accept
+          Request Instaloan
         </button>
       </a>
     </div>
