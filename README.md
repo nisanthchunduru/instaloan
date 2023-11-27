@@ -61,5 +61,6 @@ python app.py
 ### Todos
 
 - Add form validations to the backend
+- Add an authenticity token to forms
 - Add unit tests
 - Add integration tests
