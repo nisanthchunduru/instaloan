@@ -1,6 +1,6 @@
 import calendar
 import random
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 def memoize(func):
     cache = {}
