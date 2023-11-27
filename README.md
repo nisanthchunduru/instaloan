@@ -2,6 +2,10 @@
 
 Solution for Demyst's Code Kata https://github.com/DemystData/code-kata
 
+## Demo
+
+Visit https://instaloan.onrender.com for a quick demo
+
 ## Installation
 
 Install dependencies
