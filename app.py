@@ -1,13 +1,18 @@
 from flask import Flask, request, render_template, session, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, exc
 from flask_migrate import Migrate
 import random
 from datetime import datetime, timedelta
 import calendar
+import os
 
 app = Flask("instaloan")
 app.config['SECRET_KEY'] = "dummy_secret_key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgresql://postgres:@localhost/instaloan_dev'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

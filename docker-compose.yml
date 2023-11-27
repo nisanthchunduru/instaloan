@@ -1,0 +1,12 @@
+version: "2.14"
+services:
+  postgres:
+    image: "postgres:13.7-alpine"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+volumes:
+  postgres:
