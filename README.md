@@ -50,13 +50,13 @@ python app.py
 
 ### Screenshots
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/7445c73d-8aad-412f-9389-82c654036cd2)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/b51b6b09-03eb-4e15-ab8c-ccb349c41217)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/38cfca3c-5dc9-4225-98db-8bf75bc0f7db)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/d15633b6-b5e2-412b-9cfb-afe74f0b29ce)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/b5656759-83b3-43e6-bee6-d4d1263bebfb)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/0a718fa2-f480-46df-a76f-011756568118)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/c9db33f3-9ab5-4311-be86-d8ad3eaf84d0)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/dfaeb222-2e8f-44f8-8e0f-8fc59d58f9c0)
 
 ### Todos
 
