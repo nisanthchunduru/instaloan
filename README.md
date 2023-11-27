@@ -47,3 +47,21 @@ Start the app
 ```
 python app.py
 ```
+
+### Screenshots
+
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/7445c73d-8aad-412f-9389-82c654036cd2)
+
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/38cfca3c-5dc9-4225-98db-8bf75bc0f7db)
+
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/b5656759-83b3-43e6-bee6-d4d1263bebfb)
+
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/c9db33f3-9ab5-4311-be86-d8ad3eaf84d0)
+
+### Todos
+
+- Don't approve all loans. Randomly disapprove a percentage of loans.
+- Add ability to easily go forwards/backwards. Prefill forms that have been previously completed.
+- Refactor app.py
+- Add unit tests
+- Add integration tests
