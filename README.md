@@ -54,11 +54,11 @@ python app.py
 
 ![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/b51b6b09-03eb-4e15-ab8c-ccb349c41217)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/d15633b6-b5e2-412b-9cfb-afe74f0b29ce)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/bbaada44-73a3-4b1f-a568-d04c2b8ba2a2)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/0a718fa2-f480-46df-a76f-011756568118)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/e9742075-c23b-4c17-9ab8-d58e9f701020)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/dfaeb222-2e8f-44f8-8e0f-8fc59d58f9c0)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/891c61f8-7a58-4608-a398-b04bc30de4ab)
 
 ### Todos
 
