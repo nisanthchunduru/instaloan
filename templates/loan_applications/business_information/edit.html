@@ -6,14 +6,16 @@
   <body>
     {% include 'navbar.html' %}
 
-    <div class="text-center mt-12">
-      <h3 class="text-4xl">Business Information</h3>
+    {% include 'loan_applications/steps.html' %}
+
+    <div class="text-center mt-8">
+      <h3 class="text-4xl">Enter business information</h3>
       <p class="text-gray-400 mt-2 text-xl">Enter your business information</p>
     </div>
 
     <div class="flex justify-center mb-12">
-      <div class="bg-white rounded px-8 pt-6 pb-8 mb-4 shadow-md w-1/4 mt-12">
-        <form method="post" action="{{ loan_application_path if loan_application else "/loan_applications" }}">
+      <div class="bg-white rounded px-8 pt-6 pb-8 mb-4 shadow-md w-1/4 mt-6">
+        <form method="post" action="{{ url_for('business_information', loan_application_id=loan_application.id) if loan_application else url_for('create_loan_application') }}">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="business_name">Business Name</label>
               <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="business_name" type="text" placeholder="Acme Inc." value="{{ loan_application.business_name if loan_application }}" {{ "disabled=true" if loan_application and loan_application.is_evaluated() }}">
@@ -40,7 +42,7 @@
 
           <div class="flex items-center justify-center mt-8">
             <button type="submit" class="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" type="button">
-              Review Balance Sheet
+              Next
             </button>
           </div>
         </form>

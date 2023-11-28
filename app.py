@@ -24,7 +24,12 @@ migrate = Migrate(app, db)
 def home():
     if 'current_loan_application_id' in session:
         loan_application_id = session['current_loan_application_id']
-        return tredirect(url_for('loan_application', id=loan_application_id))
+        return tredirect(url_for('business_information', loan_application_id=loan_application_id))
+        # loan_application = LoanApplication.query.get_or_404(loan_application_id)
+        # if loan_application.status == "started":
+        #     return tredirect(url_for('balanced_sheet', loan_application_id=loan_application_id))
+        # elif loan_application.is_evaluated():
+        #     return tredirect(url_for('decision', loan_application_id=loan_application_id))
 
     return render_template('index.html')
 
@@ -40,7 +45,7 @@ def create_session():
     if loan_application:
         session['current_loan_application_id'] = loan_application.id
         if loan_application.is_evaluated():
-            return tredirect(url_for('loan_application_decision', loan_application_id=loan_application.id))
+            return tredirect(url_for('decision', loan_application_id=loan_application.id))
 
     return tredirect(url_for('new_loan_application'))
 
@@ -52,18 +57,18 @@ def destroy_session():
         session.pop('current_loan_application_id')
     return tredirect(url_for('home'))
 
-@app.route('/loan_applications/new')
+@app.route('/loan_applications/new/business_information')
 def new_loan_application():
     if 'current_loan_application_id' in session:
         loan_application_id = session['current_loan_application_id']
-        return tredirect(url_for('loan_application', id=loan_application_id))
+        return tredirect(url_for('business_information', loan_application_id=loan_application_id))
 
-    return render_template('loan_applications/edit.html')
+    return render_template('loan_applications/business_information/edit.html')
 
-@app.route('/loan_applications/<int:id>')
-def loan_application(id):
-    loan_application = LoanApplication.query.get_or_404(id)
-    return render_template('loan_applications/edit.html', loan_application=loan_application, loan_application_path=("/loan_applications/" + str(id)))
+@app.route('/loan_applications/<int:loan_application_id>/business_information')
+def business_information(loan_application_id):
+    loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    return render_template('loan_applications/business_information/edit.html', loan_application=loan_application)
 
 @app.route('/loan_applications', methods=['POST'])
 def create_loan_application():
@@ -92,8 +97,8 @@ def create_loan_application():
 
     return tredirect(url_for('balance_sheet', loan_application_id=loan_application.id))
 
-@app.route('/loan_applications/<int:loan_application_id>', methods=['POST', 'PUT'])
-def update_loan_application(loan_application_id):
+@app.route('/loan_applications/<int:loan_application_id>/business_information', methods=['POST', 'PUT'])
+def update_business_information(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
     if loan_application.is_evaluated():
         return tredirect(url_for('balance_sheet', loan_application_id=loan_application.id))
@@ -122,12 +127,12 @@ def balance_sheet(loan_application_id):
     balance_sheet = get_business_balance_sheet(loan_application.accounting_software, loan_application.business_name)
     for entry in balance_sheet:
         entry['monthName'] = month_number_to_month_name(entry['month'])
-
     target_year = int(request.args.get('year', datetime.now().year))
     balance_sheet_for_target_year = [entry for entry in balance_sheet if entry['year'] == target_year]
     balance_sheet_years = set(entry['year'] for entry in balance_sheet)
     return render_template(
         'loan_applications/balance_sheet/show.html',
+        loan_application=loan_application,
         loan_application_id=loan_application_id,
         balance_sheet_years=balance_sheet_years,
         target_year=target_year,
@@ -138,7 +143,7 @@ def balance_sheet(loan_application_id):
 def accept_balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
     if loan_application.is_evaluated():
-        return tredirect(url_for('loan_application_decision', loan_application_id=loan_application.id))
+        return tredirect(url_for('decision', loan_application_id=loan_application.id))
 
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
     if not loan_application.status == "started":
@@ -152,10 +157,10 @@ def accept_balance_sheet(loan_application_id):
     db.session.add(loan_application)
     db.session.commit()
 
-    return tredirect(url_for('loan_application_decision', loan_application_id=loan_application.id))
+    return tredirect(url_for('decision', loan_application_id=loan_application.id))
 
 @app.route('/loan_applications/<int:loan_application_id>/decision')
-def loan_application_decision(loan_application_id):
+def decision(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
     if not loan_application.is_evaluated():
         return abort(403)

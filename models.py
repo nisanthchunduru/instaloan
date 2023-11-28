@@ -26,6 +26,3 @@ class LoanApplication(db.Model):
             return True
 
         return False
-
-    def balance_sheet(self):
-        business_accouting_so

@@ -1,0 +1,29 @@
+{% set step_titles = ["Enter business information", "Review balance sheet", "Decision"] %}
+{% set step_url_slugs = ["business_information", "balance_sheet", "decision"] %}
+{% if loan_application %}
+  {% if loan_application.status == 'started' %}
+    {% set last_completed_step_number = 1 %}
+  {% else %}
+    {% set last_completed_step_number = 3 %}
+  {% endif  %}
+{% else %}
+  {% set last_completed_step_number = 0 %}
+{% endif %}
+<div class="flex justify-center py-4 mt-4">
+  {% for step_title in step_titles %}
+    {% if loan_application %}
+      <a href="/loan_applications/{{ loan_application.id }}/{{ step_url_slugs[loop.index - 1] }}">
+    {% else %}
+      <a class="pointer-events-none">
+    {% endif %}
+      <button class="inline-flex text-sm mr-6">
+        <div class="flex items-center space-x-2">
+          <div class="inline-flex rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent text-primary-foreground {{ 'bg-green-400' if loop.index <= last_completed_step_number else 'bg-slate-300' }}">
+            {{ loop.index }}
+          </div>
+          <span>{{ step_title }}</span>
+        </div>
+      </button>
+    </a>
+  {% endfor %}
+</div>

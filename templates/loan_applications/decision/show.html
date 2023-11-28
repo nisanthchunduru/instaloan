@@ -6,7 +6,9 @@
   <body>
     {% include 'navbar.html' %}
 
-    <div class="text-center mt-32">
+    {% include 'loan_applications/steps.html' %}
+
+    <div class="text-center mt-24">
       {% if loan_application.status == "approved" %}
         <h3 class="text-4xl">Congratulations! Your loan has been approved</h3>
         <p class="mt-2 text-xl">We'll reach out to you shortly</p>
