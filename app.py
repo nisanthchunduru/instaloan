@@ -94,11 +94,17 @@ def create_loan_application():
 
 @app.route('/loan_applications/<int:loan_application_id>', methods=['POST', 'PUT'])
 def update_loan_application(loan_application_id):
+    loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    if loan_application.is_evaluated():
+        return tredirect(url_for('balance_sheet', loan_application_id=loan_application.id))
+
     business_information_form = BusinessInformationForm(request.form)
     if not business_information_form.validate():
         return abort(403)
 
-    loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    if not loan_application.status == "started":
+        return abort(403)
+
     if loan_application.is_evaluated() is False:
         loan_application.business_name = request.form.get('business_name')
         loan_application.establishment_year = request.form.get('establishment_year')
@@ -131,6 +137,12 @@ def balance_sheet(loan_application_id):
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet/accept')
 def accept_balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    if loan_application.is_evaluated():
+        return tredirect(url_for('loan_application_decision', loan_application_id=loan_application.id))
+
+    loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    if not loan_application.status == "started":
+        return abort(403)
 
     loan_application.status = "balance_sheet_accepted"
     db.session.add(loan_application)
@@ -149,6 +161,9 @@ def accept_balance_sheet(loan_application_id):
 @app.route('/loan_applications/<int:loan_application_id>/decision')
 def loan_application_decision(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
+    if not loan_application.is_evaluated():
+        return abort(403)
+
     return render_template('loan_applications/decision/show.html', loan_application=loan_application)
 
 if __name__ == '__main__':
