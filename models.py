@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import random
 
 # db = SQLAlchemy(app)
 db = SQLAlchemy()
@@ -12,8 +13,19 @@ class LoanApplication(db.Model):
     accounting_software = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(50), default='Pending')
 
+    def evaluate(self):
+        if random.randint(0, 100) > 50:
+            self.status = "approved"
+        else:
+            self.status = "rejected"
+        db.session.add(self)
+        db.session.commit()
+
     def is_evaluated(self):
         if self.status in ["approved", "rejected"]:
             return True
 
         return False
+
+    def balance_sheet(self):
+        business_accouting_so

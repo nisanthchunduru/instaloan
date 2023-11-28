@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, url_for, redirect, a
 from flask_migrate import Migrate
 from datetime import datetime
 import os
-from helpers import get_business_balance_sheet, get_month_name, evaluate_loan_application
+from helpers import get_business_balance_sheet, month_number_to_month_name
 from models import db, LoanApplication
 from forms.login_form import LoginForm
 from forms.business_information_form import BusinessInformationForm
@@ -119,9 +119,9 @@ def update_loan_application(loan_application_id):
 def balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
 
-    balance_sheet = get_business_balance_sheet(loan_application.business_name)
+    balance_sheet = get_business_balance_sheet(loan_application.accounting_software, loan_application.business_name)
     for entry in balance_sheet:
-        entry['monthName'] = get_month_name(entry['month'])
+        entry['monthName'] = month_number_to_month_name(entry['month'])
 
     target_year = int(request.args.get('year', datetime.now().year))
     balance_sheet_for_target_year = [entry for entry in balance_sheet if entry['year'] == target_year]
@@ -148,11 +148,7 @@ def accept_balance_sheet(loan_application_id):
     db.session.add(loan_application)
     db.session.commit()
 
-    decision = evaluate_loan_application(loan_application)
-    if decision == "approve":
-        loan_application.status = "approved"
-    else:
-        loan_application.status = "rejected"
+    loan_application.evaluate()
     db.session.add(loan_application)
     db.session.commit()
 
