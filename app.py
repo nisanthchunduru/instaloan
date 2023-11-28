@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template, session, url_for, redirect
+from flask import Flask, request, render_template, session, url_for, redirect, abort
 from flask_migrate import Migrate
 from datetime import datetime
 import os
 from helpers import get_business_balance_sheet, get_month_name, evaluate_loan_application
 from models import db, LoanApplication
+from forms.login_form import LoginForm
+from forms.business_information_form import BusinessInformationForm
 
 app = Flask("instaloan")
 app.config['SECRET_KEY'] = "dummy_secret_key"
@@ -28,6 +30,10 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def create_session():
+    login_form = LoginForm(request.form)
+    if not login_form.validate():
+        return abort(403)
+
     business_email = request.form.get('business_email')
     session['business_email'] = business_email
     loan_application = LoanApplication.query.filter_by(business_email=business_email).order_by(LoanApplication.id.desc()).first()
@@ -61,6 +67,10 @@ def loan_application(id):
 
 @app.route('/loan_applications', methods=['POST'])
 def create_loan_application():
+    business_information_form = BusinessInformationForm(request.form)
+    if not business_information_form.validate():
+        return abort(403)
+
     business_name = request.form.get('business_name')
     business_email = session['business_email']
     establishment_year = request.form.get('establishment_year')
@@ -84,6 +94,10 @@ def create_loan_application():
 
 @app.route('/loan_applications/<int:loan_application_id>', methods=['POST', 'PUT'])
 def update_loan_application(loan_application_id):
+    business_information_form = BusinessInformationForm(request.form)
+    if not business_information_form.validate():
+        return abort(403)
+
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
     if loan_application.is_evaluated() is False:
         loan_application.business_name = request.form.get('business_name')
