@@ -62,6 +62,7 @@ python app.py
 
 ### Todos
 
+- Investigate splitting the `LoanApplication` model into multiple models
 - Add an authenticity token to forms
 - Add unit tests
 - Add integration tests
