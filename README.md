@@ -6,6 +6,8 @@ Solution for Demyst's Code Kata https://github.com/DemystData/code-kata
 
 Visit https://instaloan.onrender.com for a quick demo
 
+Please note that Render may take 1 - 2 minutes to spin up the website (unless the website has received traffic in the last 15 minutes).
+
 ## Installation
 
 Start the app
