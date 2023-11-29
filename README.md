@@ -58,7 +58,7 @@ python app.py
 
 ![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/e9742075-c23b-4c17-9ab8-d58e9f701020)
 
-![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/891c61f8-7a58-4608-a398-b04bc30de4ab)
+![image](https://github.com/nisanthchunduru/instaloan/assets/1789832/01fd90c8-6d16-4eb9-9d16-0304e686b2cb)
 
 ### Todos
 
