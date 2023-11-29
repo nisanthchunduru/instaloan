@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, url_for, redirect, a
 from flask_migrate import Migrate
 from datetime import datetime
 import os
-from helpers import get_business_balance_sheet, month_number_to_month_name
+from helpers import month_number_to_month_name
 from models import db, LoanApplication
 from forms.login_form import LoginForm
 from forms.business_information_form import BusinessInformationForm
@@ -124,7 +124,7 @@ def update_business_information(loan_application_id):
 def balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
 
-    balance_sheet = get_business_balance_sheet(loan_application.accounting_software, loan_application.business_name)
+    balance_sheet = loan_application.balance_sheet
     for entry in balance_sheet:
         entry['monthName'] = month_number_to_month_name(entry['month'])
     target_year = int(request.args.get('year', datetime.now().year))
@@ -142,7 +142,7 @@ def balance_sheet(loan_application_id):
 @app.route('/loan_applications/<int:loan_application_id>/balance_sheet/accept')
 def accept_balance_sheet(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
-    if loan_application.is_evaluated():
+    if loan_application.is_evaluated() or loan_application.status == "balance_sheet_accepted":
         return tredirect(url_for('decision', loan_application_id=loan_application.id))
 
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
@@ -153,17 +153,19 @@ def accept_balance_sheet(loan_application_id):
     db.session.add(loan_application)
     db.session.commit()
 
-    loan_application.evaluate()
-    db.session.add(loan_application)
-    db.session.commit()
-
     return tredirect(url_for('decision', loan_application_id=loan_application.id))
 
 @app.route('/loan_applications/<int:loan_application_id>/decision')
 def decision(loan_application_id):
     loan_application = LoanApplication.query.get_or_404(loan_application_id)
-    if not loan_application.is_evaluated():
+    if loan_application.is_evaluated():
+        pass
+    elif not loan_application.status == "balance_sheet_accepted":
         return abort(403)
+    else:
+        loan_application.evaluate()
+        db.session.add(loan_application)
+        db.session.commit()
 
     return render_template('loan_applications/decision/show.html', loan_application=loan_application)
 

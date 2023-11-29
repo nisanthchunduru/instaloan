@@ -2,13 +2,13 @@ from datetime import datetime, timedelta
 import random
 
 class Base:
-  def get_business_balance_sheet(self, business_name):
+  def business_balance_sheet(self, business_name):
     start_date = datetime.now() - timedelta(days=3 * 365)
 
     balance_sheet = []
 
     for _ in range(36):
-        profit = random.uniform(-10000, 10000)
+        profit = random.uniform(-2500, 10000)
 
         if balance_sheet:
             assets = round(balance_sheet[-1]['assetsValue'] + profit)
