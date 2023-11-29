@@ -10,9 +10,9 @@
 
     <div class="text-center mt-24">
       {% if loan_application.status == "approved" %}
-        <h3 class="text-4xl">Congratulations! Your loan is pre-approved!</h3>
+        <h3 class="text-4xl">Congratulations! Your loan is pre-approved.</h3>
         {% if loan_application.preassesssed_loan_percentage %}
-          <p class="mt-2 text-xl">{{ loan_application.preassesssed_loan_percentage }}% of your loan amount will be sanctioned. We'll reach out to you shortly</p>
+          <p class="mt-2 text-xl">{{ loan_application.preassesssed_loan_percentage }}% of your loan amount will be sanctioned. We'll reach out to you shortly.</p>
         {% else %}
           <p class="mt-2 text-xl">We'll reach out to you shortly</p>
         {% endif %}
