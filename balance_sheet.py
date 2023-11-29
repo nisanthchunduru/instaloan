@@ -2,6 +2,7 @@ class BalanceSheet:
   def __init__(self, value):
     self.value = value
 
+  # TODO: Add a more generic method like `profit_since`
   @property
   def profit_in_last_12_months(self):
     profit_in_last_12_months = 0
@@ -11,6 +12,7 @@ class BalanceSheet:
 
     return profit_in_last_12_months
 
+  # TODO: Add a more generic method like `average_assets_value_since`
   @property
   def average_assets_value_in_last_12_months(self):
     average_assets_value_in_last_12_months = 0
