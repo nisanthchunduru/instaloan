@@ -62,7 +62,7 @@ python app.py
 
 ### Requirements
 
- See https://github.com/DemystData/code-kata
+See https://github.com/DemystData/code-kata to understand the project's requirements
 
 ### Todos
 
