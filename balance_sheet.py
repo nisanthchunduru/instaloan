@@ -21,6 +21,7 @@ class BalanceSheet:
 
     return average_assets_value_in_last_12_months
 
+  @property
   def profit_or_loss_yearly_summary(self):
     summary = {}
     for entry in self.value:
