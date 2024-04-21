@@ -1,6 +1,6 @@
 # instaloan
 
-Instaloan is a prototype instant loan service
+Instaloan is a prototype Instant Loan service with a beautiful UI
 
 ### Screenshots
 
